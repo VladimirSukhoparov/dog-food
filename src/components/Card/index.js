@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import api from '../../utils/api';
 
-import {Link} from 'react-router-dom'
 import { Card as CardMUI } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,19 +12,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#fed700;',
-        },
-        secondary: {
-            main: '#FF0000',
-        },
-    },
-});
 
 export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavorites }) => {
     const writeLS = (key, value) => {
@@ -74,41 +61,39 @@ export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavori
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <CardMUI sx={{ maxWidth: 345 }}>
-                <CardMedia component='img' image={itemFood.pictures} alt={itemFood.name} />
-                <CardContent>
-                    <Typography gutterBottom variant='h5' component='div'>
-                        {itemFood.price}
-                    </Typography>
-                    <Typography variant='body2' color='text.secondary'>
-                        <Link to={`product/${itemFood._id}`}>{itemFood.name}</Link>
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    {isInBasket ? (
-                        <Button onClick={removeItem} variant='contained' color='secondary' size='small'>
-                            Убрать из корзины
-                        </Button>
-                    ) : (
-                        <Button onClick={addItem} variant='contained' color='primary' size='small'>
-                            В корзину
-                        </Button>
-                    )}
-                    {isInFavorites ? (
-                        <IconButton aria-label='add to favorites' onClick={removeFavorite}>
-                            <FavoriteIcon />
-                        </IconButton>
-                    ) : (
-                        <IconButton aria-label='add to favorites' onClick={addFavorite}>
-                            <FavoriteBorderOutlinedIcon />
-                        </IconButton>
-                    )}
-                    {/* <IconButton aria-label='add to favorites' onClick={isInFavorites ? removeFavorite : addFavorite}>
+        <CardMUI sx={{ maxWidth: 345 }}>
+            <CardMedia component='img' image={itemFood.pictures} alt={itemFood.name} />
+            <CardContent>
+                <Typography gutterBottom variant='h5' component='div'>
+                    {itemFood.price}
+                </Typography>
+                <Typography variant='body2' color='text.secondary'>
+                    <Link to={`product/${itemFood._id}`}>{itemFood.name}</Link>
+                </Typography>
+            </CardContent>
+            <CardActions>
+                {isInBasket ? (
+                    <Button onClick={removeItem} variant='contained' color='secondary' size='small'>
+                        Убрать из корзины
+                    </Button>
+                ) : (
+                    <Button onClick={addItem} variant='contained' color='primary' size='small'>
+                        В корзину
+                    </Button>
+                )}
+                {isInFavorites ? (
+                    <IconButton aria-label='add to favorites' onClick={removeFavorite}>
+                        <FavoriteIcon />
+                    </IconButton>
+                ) : (
+                    <IconButton aria-label='add to favorites' onClick={addFavorite}>
+                        <FavoriteBorderOutlinedIcon />
+                    </IconButton>
+                )}
+                {/* <IconButton aria-label='add to favorites' onClick={isInFavorites ? removeFavorite : addFavorite}>
                         <FavoriteIcon color={isInFavorites ? 'secondary' : 'primary'} />
                     </IconButton> */}
-                </CardActions>
-            </CardMUI>
-        </ThemeProvider>
+            </CardActions>
+        </CardMUI>
     );
 };

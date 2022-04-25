@@ -11,7 +11,7 @@ class Api {
     }
 
     getProducts(itemID) {
-        const requestUrl=itemID ?`${this._url}/products/${itemID}`:`${this._url}/products`
+        const requestUrl = itemID ? `${this._url}/products/${itemID}` : `${this._url}/products`;
         return fetch(requestUrl, {
             headers: {
                 authorization: `Bearer ${this._token}`,
@@ -19,24 +19,34 @@ class Api {
         }).then(onResponce);
     }
 
-    addProduct(product){
+    addProduct(product) {
         return fetch(`${this._url}/products`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${this._token}`,
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(product)
+            body: JSON.stringify(product),
         }).then(onResponce);
     }
 
-    deleteProduct(itemID){
+    deleteProduct(itemID) {
         return fetch(`${this._url}/products/${itemID}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`,
-                            },
-            
+            },
+        }).then(onResponce);
+    }
+
+    editProduct(itemID, freshItem) {
+        return fetch(`${this._url}/products/${itemID}`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${this._token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(freshItem),
         }).then(onResponce);
     }
 

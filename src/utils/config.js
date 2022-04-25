@@ -4,5 +4,3 @@ export const config = {
 };
 
 
-// еще один
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU4NzA0MzBjZGQ3ZDNmZDUyZjgyZWUiLCJpYXQiOjE2NDk5NjMxNTUsImV4cCI6MTY4MTQ5OTE1NX0.JatucySGsawbVKuLbSS-wfqoh8HbpwPbz9JLUy71dvw

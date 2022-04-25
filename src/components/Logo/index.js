@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./index.css";
 import logo from "../../../public/assets/svg/logo.svg";
-import { Link } from "react-router-dom";
 
 const Logo = ({className, href, ...props}) => {
 	return (
