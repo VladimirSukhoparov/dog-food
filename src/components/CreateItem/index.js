@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import api from '../../utils/api';
 
-import { TextField, Grid, Button } from '@mui/material';
+import { TextField, Grid, Button, Typography } from '@mui/material';
 
-export const CreateItem = () => {
+export const CreateItem = ({ changeList }) => {
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,6 +19,7 @@ export const CreateItem = () => {
             price: inputPrice.value,
         })
             .then((data) => {
+                changeList((prevState) => [data, ...prevState])
                 navigate('/');
             })
             .catch((err) => alert(err));
@@ -28,13 +29,16 @@ export const CreateItem = () => {
         <form onSubmit={handleSubmit}>
             <Grid container flexDirection='column' spacing='10'>
                 <Grid item>
-                    <TextField label='Название' name='inputName' variant='outlined' />
+                    <Typography variant='h3'>Создать товар </Typography>
                 </Grid>
                 <Grid item>
-                    <TextField label='Описание товара' name='inputDescription' variant='outlined' />
+                    <TextField fullWidth label='Название' name='inputName' variant='outlined' />
                 </Grid>
                 <Grid item>
-                    <TextField label='Цена' name='inputPrice' variant='outlined' />
+                    <TextField fullWidth label='Описание товара' name='inputDescription' variant='outlined' />
+                </Grid>
+                <Grid item>
+                    <TextField fullWidth label='Цена' name='inputPrice' variant='outlined' />
                 </Grid>
                 <Grid item>
                     <Button type='submit' variant='contained' color='secondary' size='small'>

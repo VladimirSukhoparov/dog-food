@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Grid, IconButton } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import UserContext from '../../contexts/userContext';
 
-export const Info = ({ basket, favorites, name }) => {
+import { Grid, IconButton, Chip } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FaceIcon from '@mui/icons-material/Face';
+
+export const Info = ({ basket, favorites }) => {
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     const navigateToCreatePage = () => {
         navigate('product/create');
     };
-    
+
+    const navigateToEditPage = () => {
+        navigate('user/edit');
+    };
+
     return (
-        <div>
-            <Grid container flexDirection='column'>
-                <Grid item> ЛАЙКИ {favorites.length} </Grid>
-                <Grid item> КОРЗИНА {basket.length}</Grid>
-                <Grid item> ИМЯ ЮЗЕРА {name} </Grid>
-                <Grid item>
-                    <IconButton onClick={navigateToCreatePage}>
-                        <AddIcon />
-                    </IconButton>
+        <div className='info'>
+            <Grid container flexDirection='row' maxWidth={{ sm: 300 }}>
+                <Grid item container spacing={3} alignItems='center'>
+                    <Grid item>
+                        <IconButton onClick={navigateToCreatePage}>
+                            <AddIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item>
+                        <Chip icon={<FavoriteIcon />} label={favorites.length} color='info' variant='outlined' />
+                    </Grid>
+                    <Grid item>
+                        <Chip icon={<DeleteIcon />} label={basket.length} color='info' variant='outlined' />
+                    </Grid>
+                </Grid>
+                <Grid item container>
+                    <Chip icon={<FaceIcon />} onClick={navigateToEditPage} label={user?.name} color='info' variant='outlined' />
                 </Grid>
             </Grid>
         </div>

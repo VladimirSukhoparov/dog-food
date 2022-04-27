@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../utils/api';
 
-import Grid from '@mui/material/Grid';
-import { Button, Typography } from '@mui/material';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-export const Item = () => {
+import Grid from '@mui/material/Grid';
+import { Button, IconButton, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+export const Item = ({ changeList }) => {
     const [item, setItem] = useState(null);
     const params = useParams();
     const navigate = useNavigate();
+    const { writeLS } = useLocalStorage();
 
     const handleClick = () => {
         api.deleteProduct(params.itemID)
             .then((data) => {
-                console.log(data);
+                changeList((prevState) => {
+                    return prevState.filter((item) => item._id !== params.itemID);
+                });
                 navigate('/');
             })
             .catch((err) => alert(err));
@@ -21,6 +29,10 @@ export const Item = () => {
 
     const navigateToEditPage = () => {
         navigate(`edit`);
+    };
+
+    const addToFavorite = () => {
+        writeLS('favorites', params.itemID);
     };
 
     useEffect(() => {
@@ -32,7 +44,7 @@ export const Item = () => {
         <>
             {item && (
                 <Grid container spacing={2}>
-                    <Grid item container xs={6}>
+                    <Grid item container xs={6} alignContent='flex-start' spacing={3}>
                         <Grid item xs={12}>
                             <img
                                 style={{
@@ -45,18 +57,17 @@ export const Item = () => {
                                 alt='picture'
                             />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             Цена : {item.price}
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Button onClick={handleClick} variant='contained' color='primary' size='small'>
-                                Удалить товар
-                            </Button>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Button onClick={navigateToEditPage} variant='contained' color='warning' size='small'>
-                                Редактировать товар
-                            </Button>
+                            <IconButton onClick={handleClick}>
+                                <DeleteIcon />
+                            </IconButton>
+                            <IconButton onClick={navigateToEditPage}>
+                                <EditIcon />
+                            </IconButton>
+                            <IconButton onClick={addToFavorite}>
+                                <FavoriteIcon />
+                            </IconButton>
                         </Grid>
                     </Grid>
                     <Grid item xs={6}>

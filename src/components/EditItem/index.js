@@ -39,6 +39,7 @@ export const EditItem = () => {
             </Grid>
             <Grid item>
                 <TextField
+                    fullWidth
                     label='Название'
                     variant='outlined'
                     value={name}
@@ -49,6 +50,7 @@ export const EditItem = () => {
             </Grid>
             <Grid item>
                 <TextField
+                    fullWidth
                     label='Описание товара'
                     variant='outlined'
                     value={description}
@@ -59,6 +61,7 @@ export const EditItem = () => {
             </Grid>
             <Grid item>
                 <TextField
+                    fullWidth
                     label='Цена'
                     variant='outlined'
                     value={price}

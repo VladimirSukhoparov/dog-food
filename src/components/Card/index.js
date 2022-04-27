@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import api from '../../utils/api';
+import './index.css';
 
-import { Card as CardMUI } from '@mui/material';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+
+import { Grid, Card as CardMUI } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -14,17 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavorites }) => {
-    const writeLS = (key, value) => {
-        const storage = JSON.parse(localStorage.getItem(key)) || [];
-        storage.push(value);
-        localStorage.setItem(key, JSON.stringify(storage));
-    };
-
-    const removeLS = (key, value) => {
-        const storage = JSON.parse(localStorage.getItem(key));
-        const filteredStorage = storage.filter((itemID) => value !== itemID);
-        localStorage.setItem(key, JSON.stringify(filteredStorage));
-    };
+    const { writeLS, removeLS } = useLocalStorage();
 
     const addItem = () => {
         writeLS('basket', itemFood._id);
@@ -61,8 +54,10 @@ export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavori
     };
 
     return (
-        <CardMUI sx={{ maxWidth: 345 }}>
+        <CardMUI className='card'>
             <CardMedia component='img' image={itemFood.pictures} alt={itemFood.name} />
+            {/* <Grid container flexDirection='column' justifyContent='space-around'> */}
+            {/* <Grid item> */}
             <CardContent>
                 <Typography gutterBottom variant='h5' component='div'>
                     {itemFood.price}
@@ -71,6 +66,8 @@ export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavori
                     <Link to={`product/${itemFood._id}`}>{itemFood.name}</Link>
                 </Typography>
             </CardContent>
+            {/* </Grid> */}
+            {/* <Grid item> */}
             <CardActions>
                 {isInBasket ? (
                     <Button onClick={removeItem} variant='contained' color='secondary' size='small'>
@@ -94,6 +91,8 @@ export const Card = ({ itemFood, isInBasket, setBasket, isInFavorites, setFavori
                         <FavoriteIcon color={isInFavorites ? 'secondary' : 'primary'} />
                     </IconButton> */}
             </CardActions>
+            {/* </Grid> */}
+            {/* </Grid> */}
         </CardMUI>
     );
 };
