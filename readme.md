@@ -1,15 +1,15 @@
-# Учебный проект магазина собачьей еды
+# Dog food store project
 ![screenshot](./readme-assets/home.png)
 
-Разработан функционал личного кабинета, просмотр описания продукта, добавление/удаление лайка, добавление/удаление из корзины, поиск.
+The functionality of the personal account has been developed, viewing the product description, adding / removing likes, adding / removing from the basket, searching.
 
 ![screenshot](./readme-assets/search.png)
 
 ***
-# Установка 
+# Installation
 
 yarn install
 
-# Запуск
+# Launch
 
 yarn start
